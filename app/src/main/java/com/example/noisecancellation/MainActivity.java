@@ -29,7 +29,7 @@ public class MainActivity extends Activity
             restoreButtonState( savedInstanceState.getBoolean( "ButtonState" ) );
         }
         
-    }   /* onCreate() */
+    }
 
     @Override
     public boolean onCreateOptionsMenu( Menu menu )
@@ -41,7 +41,7 @@ public class MainActivity extends Activity
         getMenuInflater().inflate(R.menu.main, menu);
         return( true );
         
-    }   /* onCreateOptionsMenu() */
+    }
 
     public void onToggleClicked(View view) 
     {        
@@ -65,7 +65,7 @@ public class MainActivity extends Activity
         	work_process.pause();
         }
         
-    }   /* onToggleClicked() */
+    }
     
     @Override
     public void onDestroy()
@@ -90,7 +90,7 @@ public class MainActivity extends Activity
          *-------------------------------------*/
         super.onDestroy();
         
-    }   /* onDestroy() */
+    }
         
     @Override
     public void onSaveInstanceState( Bundle b )
@@ -117,4 +117,4 @@ public class MainActivity extends Activity
         }
     }
 
-};
+}
