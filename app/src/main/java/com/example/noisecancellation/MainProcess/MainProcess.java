@@ -7,9 +7,7 @@ import com.example.noisecancellation.fft.*;
 
 public class MainProcess implements Runnable
 {
-    /*-----------------------------------------
-     * Class variables
-     *---------------------------------------*/
+
     private int          n;
     private Mic          m;
     private OutputDevice s;
@@ -46,7 +44,7 @@ public class MainProcess implements Runnable
         resetBuffers( n );
         setUp();
 
-    }   /* MainProcess() */
+    }
 
     /**
      * Sets a flag telling the thread that
@@ -59,7 +57,7 @@ public class MainProcess implements Runnable
         m.stop();
         s.stop();
 
-    }   /* pause() */
+    }
 
     /**
      * Sets a flag telling the thread that
@@ -71,7 +69,7 @@ public class MainProcess implements Runnable
         s.start();
         paused = false;
 
-    }   /* resume() */
+    }
 
     @Override
     /**
@@ -93,7 +91,7 @@ public class MainProcess implements Runnable
 
         tearDown();
 
-    }   /* run() */
+    }
 
     /**
      * Sets a flag for the processing thread so that
@@ -104,7 +102,7 @@ public class MainProcess implements Runnable
     {
         should_run = false;
 
-    }   /* stopProcessing() */
+    }
 
     /**
      * This function attempts to apply a Hanning Window
@@ -128,7 +126,7 @@ public class MainProcess implements Runnable
             window_data[ i ] = buf[ i ] * 0.5 * ( 1.0 - cos_table[ i ] );
         }
 
-    }   /* applyWindow() */
+    }
 
     /**
      * Inverts the audio obtained from the microphone.
@@ -177,7 +175,7 @@ public class MainProcess implements Runnable
 
         System.gc();
 
-    }   /* resetBuffers() */
+    }
 
     /**
      * Resets the cosine lookup table used in the
@@ -200,7 +198,7 @@ public class MainProcess implements Runnable
             cos_table[ i ] = Math.cos( 2.0 * Math.PI * (double)i / (double)new_size );
         }
 
-    }   /* resetCosTable() */
+    }
 
     /**
      * Sets up the microphone and
@@ -212,7 +210,7 @@ public class MainProcess implements Runnable
         m.open();
         s.open();
 
-    }   /* setUp() */
+    }
 
     /**
      * Closes the microphone and
@@ -225,6 +223,6 @@ public class MainProcess implements Runnable
         m.close();
         s.close();
 
-    }   /* tearDown() */
+    }
 
-};  /* MainProcess */
+}

@@ -11,9 +11,8 @@ import com.example.noisecancellation.MainProcess.MainProcess;
 
 public class MainActivity extends Activity
 {
-	private MainProcess      work_process;
-	private Thread           t;
-		
+	private MainProcess work_process;
+    Thread thread;
     @Override
     protected void onCreate( Bundle savedInstanceState )
     {
@@ -22,7 +21,8 @@ public class MainActivity extends Activity
         
 
         work_process = new MainProcess();
-        new Thread( work_process, "work" ).start();
+        thread=new Thread( work_process, "work" );
+        thread.start();
         
         if( ( savedInstanceState != null ) && ( savedInstanceState.containsKey( "ButtonState" ) ) )
         {
@@ -34,10 +34,6 @@ public class MainActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu( Menu menu )
     {
-        /*---------------------------------------
-         * Inflate the menu; this adds items 
-         * to the action bar if it is present.
-         *-------------------------------------*/
         getMenuInflater().inflate(R.menu.main, menu);
         return( true );
         
@@ -45,23 +41,15 @@ public class MainActivity extends Activity
 
     public void onToggleClicked(View view) 
     {        
-        /*---------------------------------------
-         * Is the toggle on?
-         *-------------------------------------*/
+
         boolean on = ((ToggleButton) view).isChecked();
         
         if( on ) 
         {
-            /*-----------------------------------
-             * Resume our audio processing
-             *---------------------------------*/
             work_process.resume();
         } 
         else 
-        {        	
-        	/*-----------------------------------
-        	 * Pause our audio processing
-        	 *---------------------------------*/
+        {
         	work_process.pause();
         }
         
@@ -70,24 +58,16 @@ public class MainActivity extends Activity
     @Override
     public void onDestroy()
     {
-        /*---------------------------------------
-         * Tell the thread to stop processing
-         * audio data and close the thread.
-         *-------------------------------------*/
         work_process.stopProcessing();
         try
         {
-            t.join();
+            thread.join();
         }
         catch( InterruptedException ie )
         {
             Log.i( "MainActivity--onToggleClicked()", "Failed to clean up after myself." );
             throw new RuntimeException( "Unable to clean up after myself" );
         }
-        
-        /*---------------------------------------
-         * Tell our parent to destroy itself
-         *-------------------------------------*/
         super.onDestroy();
         
     }
